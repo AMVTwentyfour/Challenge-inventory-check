@@ -1,3 +1,70 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Almacen {
+    private String nombre;
+    private List<Producto> productos;
+
+    public Almacen(String nombre) {
+        this.nombre = nombre;
+        this.productos = new ArrayList<>();
+    }
+
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+    }
+
+    public void compararInventario(Almacen otroAlmacen) {
+        System.out.println("Comparando " + this.nombre + " con " + otroAlmacen.nombre + ":");
+        // TODO: Implementar la lógica para comparar los inventarios de los dos
+        // almacenes
+        // 1. Iterar sobre los productos del primer almacén (this.productos)
+        // 2. Para cada producto, buscar si existe en el otro almacén
+        // (otroAlmacen.productos)
+        // 3. Si el producto existe en ambos almacenes, comparar el stock
+        // 4. Si el stock es diferente, imprimir un mensaje indicando la diferencia
+        // 5. Si el producto no existe en el otro almacén, imprimir un mensaje indicando
+        // que no se encuentra
+        // 6. Repetir el proceso para los productos que están en el otro almacén pero no
+        // en el primero
+
+        // comparamos el primer almacen con el otro almacen
+        for (Producto p1 : this.productos) { // iteramos sobre los productos del primer almacén
+            boolean encontrado = false; // asignamos y definimos false para inicializar la variable
+            for (Producto p2 : otroAlmacen.productos) { // iteramos sobre los productos del otro almacén
+                if (p1.equals(p2)) { // comparamos si los productos son iguales
+                    encontrado = true; // asignamos true si el producto se encuentra en ambos almacenes
+                    if (p1.getStock() != p2.getStock()) { // comparamos el stock de los productos
+                        System.out.println("Producto " + p1.getNombre() + " (Código: " + p1.getCodigo() +
+                                ") tiene diferente stock: " + this.nombre + " (" + p1.getStock() +
+                                "), " + otroAlmacen.nombre + " (" + p2.getStock() + ")");
+                    }
+                    break;
+                }
+            }
+            if (!encontrado) { // si el producto no se encuentra en el otro almacén
+                System.out.println("Producto " + p1.getNombre() + " (Código: " + p1.getCodigo() +
+                        ") no se encuentra en " + otroAlmacen.nombre);
+            }
+        }
+
+        // comparamos el otro almacén con el primer almacén
+        for (Producto p2 : otroAlmacen.productos) { // iteramos sobre los productos del otro almacén
+            boolean encontrado = false; // asignamos y definimos false para inicializar la variable
+            for (Producto p1 : this.productos) { // iteramos sobre los productos del primer almacén
+                if (p2.equals(p1)) { // comparamos si los productos son iguales
+                    encontrado = true; // asignamos true si el producto se encuentra en ambos almacenes
+                    break;
+                }
+            }
+            if (!encontrado) { // si el producto no se encuentra en el primer almacén
+                System.out.println("Producto " + p2.getNombre() + " (Código: " + p2.getCodigo() +
+                        ") no se encuentra en " + this.nombre);
+            }
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         // Tu código comienza aquí
@@ -43,58 +110,48 @@ class Producto {
     }
 
     // Getters
-    public String getCodigo() { return codigo; }
-    public String getNombre() { return nombre; }
-    public String getCategoria() { return categoria; }
-    public double getPrecio() { return precio; }
-    public int getStock() { return stock; }
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
 
     // Setters
-    public void setStock(int stock) { this.stock = stock; }
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     @Override
     public String toString() {
         return "Producto{" +
-               "codigo='" + codigo + '\'' +
-               ", nombre='" + nombre + '\'' +
-               ", categoria='" + categoria + '\'' +
-               ", precio=" + precio +
-               ", stock=" + stock +
-               '}';
+                "codigo='" + codigo + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", precio=" + precio +
+                ", stock=" + stock +
+                '}';
     }
 
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         Producto producto = (Producto) obj;
         return codigo.equals(producto.codigo);
-    }
-}
-
-import java.util.ArrayList;
-import java.util.List;
-
-class Almacen {
-    private String nombre;
-    private List<Producto> productos;
-
-    public Almacen(String nombre) {
-        this.nombre = nombre;
-        this.productos = new ArrayList<>();
-    }
-
-    public void agregarProducto(Producto producto) {
-        productos.add(producto);
-    }
-
-    public void compararInventario(Almacen otroAlmacen) {
-        System.out.println("Comparando " + this.nombre + " con " + otroAlmacen.nombre + ":");
-        // TODO: Implementar la lógica para comparar los inventarios de los dos almacenes
-        // 1. Iterar sobre los productos del primer almacén (this.productos)
-        // 2. Para cada producto, buscar si existe en el otro almacén (otroAlmacen.productos)
-        // 3. Si el producto existe en ambos almacenes, comparar el stock
-        // 4. Si el stock es diferente, imprimir un mensaje indicando la diferencia
-        // 5. Si el producto no existe en el otro almacén, imprimir un mensaje indicando que no se encuentra
-        // 6. Repetir el proceso para los productos que están en el otro almacén pero no en el primero
     }
 }
